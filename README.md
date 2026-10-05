@@ -186,6 +186,19 @@ console.log(braces.expand('a{b}c'));
 console.log(braces('a/{b,c}/d', { maxLength: 3 })); //=> throws an error
 ```
 
+### options.maxDepth
+
+**Type**: `Number` (non-negative integer)
+
+**Default**: `undefined`
+
+**Description**: Optionally limit brace and parenthesis nesting while parsing. The same limit is checked when `compile()`, `expand()`, or `stringify()` receives a caller-supplied AST. The default is unchanged; no depth limit is applied unless this option is provided. A `SyntaxError` is thrown for an input string that exceeds the limit and a `RangeError` is thrown for an AST that exceeds it.
+
+```js
+console.log(braces('{{a,b},c}', { maxDepth: 2 })); //=> ['((a|b)|c)']
+console.log(braces('{{a,b},c}', { maxDepth: 1 })); //=> throws an error
+```
+
 ### options.expand
 
 **Type**: `Boolean`
